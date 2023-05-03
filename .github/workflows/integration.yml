@@ -10,6 +10,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
+
     strategy:
       matrix: 
         node-version: [16.x, 18.x]
@@ -25,3 +26,12 @@ jobs:
           yarn test
         env:
           CI: true
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t eel30/todo-sq14 .
+      - run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - run: docker push eel30/todo-sq14
