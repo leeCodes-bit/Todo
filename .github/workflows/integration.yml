@@ -26,7 +26,3 @@ jobs:
           yarn test
         env:
           CI: true
-      - name: Deploy changes
-        uses: my-action/deploy@v1
-        with:
-          api-key: ${{ secrets.PAT }}
